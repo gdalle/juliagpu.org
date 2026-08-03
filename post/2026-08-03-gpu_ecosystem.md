@@ -7,7 +7,7 @@ abstract = """
 
 {{abstract}}
 
-> The text of this post was written by Claude Sonnet 4.6, then reviewed and edited by Guillaume Dalle and others. The initial structure and list of packages had been manually curated beforehand.
+> The text of this post was written by Claude Sonnet 4.6, then reviewed and edited by Guillaume Dalle and other contributors. The initial structure and list of packages had been manually curated beforehand.
 
 Julia's GPU ecosystem has grown into a rich, layered stack that spans everything from vendor-specific low-level wrappers to hardware-agnostic high-level abstractions.
 This post gives an overview of the major packages, organized by where they sit in that stack.
@@ -24,7 +24,7 @@ It bundles a user-friendly array abstraction (`CuArray`), a compiler for writing
 Most Julia users who only target NVIDIA hardware start here and never need to go deeper.
 
 [cuTile.jl](https://github.com/JuliaGPU/cuTile.jl) exposes NVIDIA's tile-based programming model, available on Ampere and newer GPUs, through a high-level Julia interface to the Tile IR architecture.
-It can fuse complex operations into single kernels and supports specialized numeric types such as FP8 and mixed-precision formats that are central to modern machine learning workloads.
+It can fuse complex operations into single kernels while supporting specialized numeric types such as FP8 and mixed-precision formats that are central to modern machine learning workloads.
 Whereas CUDA.jl covers the breadth of CUDA, cuTile.jl is the tool of choice when squeezing maximum throughput out of NVIDIA's latest tensor cores.
 
 [CUDSS.jl](https://github.com/exanauts/CUDSS.jl) is a Julia wrapper for NVIDIA's cuDSS library, which provides GPU-accelerated sparse linear solvers.
@@ -38,7 +38,7 @@ It provides an `NDArray` abstraction that supports standard array operations (e.
 Beyond NVIDIA, Julia has backends for every major GPU platform.
 
 [AMDGPU.jl](https://github.com/JuliaGPU/AMDGPU.jl) brings AMD GPU computing to Julia through ROCm integration.
-It mirrors the structure of CUDA.jl providing an array type (`ROCArray`), a kernel compiler, and library wrappers for AMD's graphics and compute hardware.
+It mirrors the structure of CUDA.jl by providing an array type (`ROCArray`), a kernel compiler, and library wrappers for AMD's graphics and compute hardware.
 
 [oneAPI.jl](https://github.com/JuliaGPU/oneAPI.jl) targets Intel GPUs and accelerators through Intel's oneAPI unified programming toolkit.
 It provides low-level Level Zero API wrappers, a `oneArray` type that integrates with Julia's array ecosystem, and oneMKL bindings for optimized linear algebra and sparse matrix operations.
@@ -55,7 +55,7 @@ The hardware-agnostic layer starts with array types and the utilities to move da
 
 [GPUArrays.jl](https://github.com/JuliaGPU/GPUArrays.jl) is the foundational package that defines the shared interface all Julia GPU array types implement.
 Rather than serving end users directly, it establishes the `AbstractGPUArray` contract—analogous to Julia's `AbstractArray`—that backend developers implement when building types like `CuArray`, `ROCArray`, or `MtlArray`.
-The package also ships two companion sub-packages: GPUArraysCore.jl, which provides the minimal type hierarchy for packages that only need to check whether an array is on a GPU, and JLArrays.jl, a CPU-backed reference implementation used for testing.
+The repository also ships two companion sub-packages: GPUArraysCore.jl, which provides the minimal type hierarchy for packages that only need to check whether an array is on a GPU, and JLArrays.jl, a CPU-backed reference implementation used for testing.
 
 [Adapt.jl](https://github.com/JuliaGPU/Adapt.jl) provides a mechanism for converting wrapper types to GPU-compatible formats while preserving their structure.
 Unlike `convert()`, the `adapt(T, x)` function knows how to unwrap and re-wrap types like `Adjoint` or `NamedTuple` around GPU arrays rather than discarding them.
@@ -67,7 +67,7 @@ Two packages provide the primitives for writing custom GPU kernels in a portable
 
 [KernelAbstractions.jl](https://github.com/JuliaGPU/KernelAbstractions.jl) is the central abstraction layer for writing GPU kernels that run across multiple hardware backends.
 It provides a unified, minimal `@kernel` macro that compiles to NVIDIA CUDA, AMD ROCm, Intel oneAPI, Apple Metal, OpenCL and the CPU without any backend-specific rewrites.
-Most hardware-agnostic libraries in Julia—including AcceleratedKernels.jl, Lava.jl—build on top of it, making it the glue that holds the portable GPU stack together.
+Most hardware-agnostic libraries in Julia—including AcceleratedKernels.jl or Lava.jl—build on top of it, making it the glue that holds the portable GPU stack together.
 
 [KernelIntrinsics.jl](https://github.com/epilliat/KernelIntrinsics.jl) provides low-level memory access primitives and warp-level operations for GPU kernel authors who need fine-grained control beyond what KernelAbstractions.jl exposes.
 It covers memory fencing, warp shuffle and reduction operations, and vectorized memory access, and does so across CUDA, ROCm, and Metal backends.
@@ -154,8 +154,8 @@ It is a go-to tool in quantum chemistry and condensed matter physics, where tens
 
 [Reactant.jl](https://github.com/EnzymeAD/Reactant.jl) takes a different approach to GPU execution: rather than offering array types or kernel abstractions, it compiles entire Julia functions to MLIR and optimizes them for execution on CPUs, GPUs, and TPUs via XLA.
 It uses operator tracing (aka partial evaluation) to obtain an equivalent MLIR code of the program. It then runs a ton of compiler optimizations that perform automatic differentiation, parallelization and optimization.
-It can also trace through control-flow constructs (like `if`, `for` and `while`) by prefixing the `@trace` macro.
 Starting from your code written with existing packages, like CUDA.jl or KernelAbstractions.jl, Reactant will automatically perform optimizations like kernel fusion, and offload to your chosen architecture.
+
 Reactant.jl tries to be minimally intrusive, but operator tracing may run into problems with control flow.
 A companion sub-package, ReactantCore.jl, exposes the `@trace` macro, which correctly marks control-flow constructs (`if`, `for`, etc.) during tracing.
 The `@trace` translates to a no-op if evaluated outside of the Reactant compilation context, allowing Reactant integration of the broader Julia ecosystem without fully depending on Reactant.
