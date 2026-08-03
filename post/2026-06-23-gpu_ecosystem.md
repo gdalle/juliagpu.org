@@ -156,7 +156,9 @@ It is a go-to tool in quantum chemistry and condensed matter physics, where tens
 It uses operator tracing (aka partial evaluation) to obtain an equivalent MLIR code of the program. It then runs a ton of compiler optimizations that perform automatic differentiation, parallelization and optimization.
 It can also trace through control-flow constructs (like `if`, `for` and `while`) by prefixing the `@trace` macro.
 Starting from your code written with existing packages, like CUDA.jl or KernelAbstractions.jl, Reactant will automatically perform optimizations like kernel fusion, and offload to your chosen architecture.
-A companion sub-package, ReactantCore.jl, exposes the minimal type hierarchy needed by other packages to be Reactant-aware, allowing the broader Julia ecosystem to interoperate with Reactant's compilation pipeline.
+Reactant.jl tries to be minimally intrusive, but operator tracing may run into problems with control flow.
+A companion sub-package, ReactantCore.jl, exposes the `@trace` macro, which correctly marks control-flow constructs (`if`, `for`, etc.) during tracing.
+The `@trace` translates to a no-op if evaluated outside of the Reactant compilation context, allowing Reactant integration of the broader Julia ecosystem without fully depending on Reactant.
 
 ### Task Runtimes
 
