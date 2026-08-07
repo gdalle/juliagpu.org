@@ -130,6 +130,11 @@ This keeps parent environments lean and fast to resolve.
 This allows GPU programs originally written for NVIDIA hardware to run on Intel, AMD, and Apple GPUs without manual rewriting.
 It is most useful for porting existing CUDA.jl codebases toward hardware-agnostic designs without starting from scratch.
 
+### Linear algebra
+
+[NextLA.jl](https://github.com/NextLinearAlgebra/NextLA.jl) is a hardware-agnostic package containing implementations of BLAS/LAPACK routines for dense linear algebra.
+It supports multiple number types and leverages multi-threading as well as GPU acceleration. 
+
 ### Tensor operations
 
 For operations on multi-dimensional arrays expressed through index notation, several packages provide GPU-aware implementations.
