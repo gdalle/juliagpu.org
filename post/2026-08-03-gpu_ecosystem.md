@@ -20,7 +20,7 @@ The distinction between hardware-specific and hardware-agnostic packages is the 
 The CUDA ecosystem is the most mature part of Julia's GPU stack, built around NVIDIA hardware.
 
 [CUDA.jl](https://github.com/JuliaGPU/CUDA.jl) is the primary interface for programming NVIDIA GPUs in Julia.
-It bundles a user-friendly array abstraction (`CuArray`), a compiler for writing CUDA kernels directly in Julia, and can be supplemented with wrappers for a broad set of [CUDA libraries](https://github.com/JuliaGPU/CUDA.jl/tree/main/lib) including cuBLAS.jl, cuSPARSE.jl, cuFFT.jl, cuSolver.jl, and cuDNN.jl.
+It bundles a user-friendly array abstraction (`CuArray`), a compiler for writing CUDA kernels directly in Julia, and can be supplemented with wrappers for a broad set of [CUDA libraries](https://github.com/JuliaGPU/CUDA.jl/tree/main/lib) including cuBLAS.jl, cuSPARSE.jl, cuFFT.jl, cuSOLVER.jl, and cuDNN.jl.
 Most Julia users who only target NVIDIA hardware start here and never need to go deeper.
 
 [cuTile.jl](https://github.com/JuliaGPU/cuTile.jl) exposes NVIDIA's tile-based programming model, available on Ampere and newer GPUs, through a high-level Julia interface to the Tile IR architecture.
@@ -67,7 +67,7 @@ Two packages provide the primitives for writing custom GPU kernels in a portable
 
 [KernelAbstractions.jl](https://github.com/JuliaGPU/KernelAbstractions.jl) is the central abstraction layer for writing GPU kernels that run across multiple hardware backends.
 It provides a unified, minimal `@kernel` macro that compiles to NVIDIA CUDA, AMD ROCm, Intel oneAPI, Apple Metal, OpenCL and the CPU without any backend-specific rewrites.
-Most hardware-agnostic libraries in Julia—including AcceleratedKernels.jl or Lava.jl—build on top of it, making it the glue that holds the portable GPU stack together.
+Most hardware-agnostic libraries in Julia -— including AcceleratedKernels.jl or Lava.jl -— build on top of it, making it the glue that holds the portable GPU stack together.
 
 [KernelIntrinsics.jl](https://github.com/epilliat/KernelIntrinsics.jl) provides low-level memory access primitives and warp-level operations for GPU kernel authors who need fine-grained control beyond what KernelAbstractions.jl exposes.
 It covers memory fencing, warp shuffle and reduction operations, and vectorized memory access, and does so across CUDA, ROCm, and Metal backends.
