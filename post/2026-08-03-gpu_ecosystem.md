@@ -110,6 +110,7 @@ Users of the default APIs, do not need prior CPU/GPU programming knowledge to pa
 
 [Strided.jl](https://github.com/QuantumKitHub/Strided.jl) provides a vendor-neutral API for writing `map`- or `mapreduce`- kernels over input arrays with varying strides.
 This allows for writing operations that fuse (strided) views and `permutedims` operations with the following kernel calls.
+[StridedViews.jl](https://github.com/QuantumKitHub/StridedViews.jl) represents lazy views with arbitrary strides over any subtype of `DenseArray`.
 
 [MatrixAlgebraKit.jl](https://github.com/QuantumKitHub/MatrixAlgebraKit.jl) provides a high-level interface to linear algebra routines provided by the various GPU vendors.
 It features a unified way of accessing these kernels that exposes access to more in-place operations than LinearAlgebra.jl, as well as compatibility with the various automatic differentiation libraries.
