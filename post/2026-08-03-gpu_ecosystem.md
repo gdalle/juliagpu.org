@@ -70,7 +70,7 @@ It provides a unified, minimal `@kernel` macro that compiles to NVIDIA CUDA, AMD
 Most hardware-agnostic libraries in Julia -— including AcceleratedKernels.jl or Lava.jl -— build on top of it, making it the glue that holds the portable GPU stack together.
 
 [KernelIntrinsics.jl](https://github.com/epilliat/KernelIntrinsics.jl) provides low-level memory access primitives and warp-level operations for GPU kernel authors who need fine-grained control beyond what KernelAbstractions.jl exposes.
-It covers memory fencing, warp shuffle and reduction operations, and vectorized memory access, and does so across CUDA, ROCm, and Metal backends.
+It covers memory fencing, warp shuffle and reduction operations, and vectorized memory access (see the package documentation for details on what these are), and does so across CUDA, ROCm, and Metal backends.
 The package is aimed at library developers rather than end users: it fills the gap between high-level kernel abstractions and the raw hardware intrinsics that performance-critical GPU code sometimes requires.
 
 [OpenCL.jl](https://github.com/JuliaGPU/OpenCL.jl) provides a comprehensive Julia interface to the OpenCL standard, which targets GPUs, FPGAs, DSPs, and multicore CPUs from a single API.
